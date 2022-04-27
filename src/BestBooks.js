@@ -18,10 +18,10 @@ class BestBooks extends React.Component {
     /* TODO: render all the books in a Carousel */
     return (
       <>
-        {this.state.books.length ? (
+        {this.props.books.length ? (
           <Carousel>
             
-            {this.state.books.map((element, idx) =>
+            {this.props.books.map((element, idx) =>
             (
 
               <Carousel.Item key={idx}>
