@@ -4,6 +4,7 @@ import Header from './Header';
 import BestBooks from './BestBooks';
 import About from './About';
 import Footer from './Footer';
+import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
@@ -23,15 +24,15 @@ class App extends React.Component {
     }
   }
 
-  hideModal = () => {
+  hideModalHandler = () => {
     this.setState({
-      showModal:false
+      showModal: false
     });
   }
-  
-  openModal = () => {
+
+  showModalHandler = () => {
     this.setState({
-      showModal:true
+      showModal: true
     });
   }
 
@@ -56,23 +57,23 @@ class App extends React.Component {
       this.setState({
         books: [this.state.books, createdBook.data]
       });
-    } catch(error) {
+    } catch (error) {
       console.log('Error: ', error.response.data);
     }
   }
-  
+
   handleBookSubmit = (e) => {
     e.preventDefault();
     console.log(e.target.title.value)
     let book = {
-      title: e.target.title.value, 
-      description: e.target.description.value, 
+      title: e.target.title.value,
+      description: e.target.description.value,
       //this is how we the value from a checkbox
       status: e.target.status.value,
-      
+
     }
     this.setState({
-      showModal:false
+      showModal: false
     });
     this.postBook(book);
   }
@@ -88,11 +89,14 @@ class App extends React.Component {
           <Header />
           <Switch>
             <Route exact path="/">
-              <BestBooks />
-              <BookFormModal 
-              openModal={this.state.openModal}
-              hideModal={this.state.hideModal}
-              handleBookSubmit={this.state.handleBookSubmit}
+              <Button onClick={this.showModalHandler}>Add a book!</Button>
+              <BestBooks
+                books={this.state.books} />
+              <BookFormModal
+                showModal={this.state.showModal}
+                hideModalHandler={this.state.hideModalHandler}
+                showModalHandler={this.state.showModalHandler}
+                handleBookSubmit={this.state.handleBookSubmit}
               />
             </Route>
             <Route path="/about">
