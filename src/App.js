@@ -94,9 +94,9 @@ class App extends React.Component {
                 books={this.state.books} />
               <BookFormModal
                 showModal={this.state.showModal}
-                hideModalHandler={this.state.hideModalHandler}
-                showModalHandler={this.state.showModalHandler}
-                handleBookSubmit={this.state.handleBookSubmit}
+                hideModalHandler={this.hideModalHandler}
+                showModalHandler={this.showModalHandler}
+                handleBookSubmit={this.handleBookSubmit}
               />
             </Route>
             <Route path="/about">
