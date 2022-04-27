@@ -1,7 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Image } from 'react-bootstrap';
 // import img from './img/LOTR.jpg';
 
 
@@ -11,31 +10,8 @@ import { Carousel } from 'react-bootstrap';
 require('dotenv').config();
 
 
-
 class BestBooks extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books: []
-    }
-  }
-
-  /* TODO: Make a GET request to your API to fetch all the books from the database  */
-  getBooks = async () => {
-
-    try {
-      let results = await axios.get(`${process.env.REACT_APP_SERVER}/books`);
-      this.setState({
-        books: results.data
-      })
-    }
-    catch (error) {
-      console.log('error', error.response);
-    }
-  }
-  componentDidMount() {
-    this.getBooks();
-  }
+  
 
   render() {
 
@@ -49,7 +25,7 @@ class BestBooks extends React.Component {
             (
 
               <Carousel.Item key={idx}>
-                <img
+                <Image
                   className='BookOne'
                   src="https://images-na.ssl-images-amazon.com/images/I/51kfFS5-fnL._SX332_BO1,204,203,200_.jpg"
                   alt='Lord Of The Rings'
@@ -72,3 +48,7 @@ class BestBooks extends React.Component {
 }
 
 export default BestBooks;
+
+
+
+
