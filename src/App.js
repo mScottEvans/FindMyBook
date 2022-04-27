@@ -10,6 +10,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import BookFormModal from './BookFormModal';
 
 
 
@@ -88,6 +89,11 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/">
               <BestBooks />
+              <BookFormModal 
+              openModal={this.state.openModal}
+              hideModal={this.state.hideModal}
+              handleBookSubmit={this.state.handleBookSubmit}
+              />
             </Route>
             <Route path="/about">
               <About />
