@@ -49,13 +49,13 @@ class App extends React.Component {
     }
   }
 
-  postBook = async (newBook) => {
+  postBook = async (book) => {
     try {
-      let results = `${process.env.REACT_APP_SERVER}/books`
-      let createdBook = await axios.post(results, newBook);
+      let results = `${process.env.REACT_APP_SERVER}/books`;
+      let createdBook = await axios.post(results, book);
       console.log(createdBook.data);
       this.setState({
-        books: [this.state.books, createdBook.data]
+        books: [...this.state.books, createdBook.data]
       });
     } catch (error) {
       console.log('Error: ', error.response.data);
@@ -91,11 +91,12 @@ class App extends React.Component {
             <Route exact path="/">
               <Button onClick={this.showModalHandler}>Add a book!</Button>
               <BestBooks
-                books={this.state.books} />
+                books={this.state.books}
+              />
               <BookFormModal
                 showModal={this.state.showModal}
                 hideModalHandler={this.hideModalHandler}
-                showModalHandler={this.showModalHandler}
+                // showModalHandler={this.showModalHandler}
                 handleBookSubmit={this.handleBookSubmit}
               />
             </Route>
