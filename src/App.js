@@ -62,6 +62,19 @@ class App extends React.Component {
     }
   }
 
+  deleteBook = async (id) => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/books/${id}`;
+      await axios.delete(url);
+      let updatedBooks = this.state.books.filter(book => book._id !== id);
+      this.setState({
+        books: updatedBooks
+      });
+    } catch(error) {
+      console.log('We have an error: ', error.respose.data);
+    }
+  }
+
   handleBookSubmit = (e) => {
     e.preventDefault();
     console.log(e.target.title.value)
@@ -92,6 +105,7 @@ class App extends React.Component {
               <Button onClick={this.showModalHandler}>Add a book!</Button>
               <BestBooks
                 books={this.state.books}
+                deleteBook={this.deleteBook}
               />
               <BookFormModal
                 showModal={this.state.showModal}
