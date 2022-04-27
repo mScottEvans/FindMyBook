@@ -12,6 +12,7 @@ import {
   Route
 } from "react-router-dom";
 import BookFormModal from './BookFormModal';
+import UpdateBookModal from './BookFormModal';
 
 
 
@@ -45,7 +46,7 @@ class App extends React.Component {
       })
     }
     catch (error) {
-      console.log('error', error.response);
+      console.log('Error: ', error.response);
     }
   }
 
@@ -71,7 +72,24 @@ class App extends React.Component {
         books: updatedBooks
       });
     } catch(error) {
-      console.log('We have an error: ', error.respose.data);
+      console.log('Error: ', error.response.data);
+    }
+  }
+
+  updateBook = async (bookToUpdate) => {
+    try {
+      let url = `${process.env.REACT_APP_SERVER}/books/${bookToUpdate._id}`;
+      let updatedBook = await axios.put(url, bookToUpdate);
+      let updatedBookArray = this.state.books.map(existingBook => {
+        return existingBook._id === bookToUpdate._id
+          ? updatedBook.data
+          : existingBook;
+      });
+      this.setState({
+        cats: updatedBookArray
+      });
+    } catch(error) {
+      console.log('Error: ', error.response.data);
     }
   }
 
@@ -81,9 +99,7 @@ class App extends React.Component {
     let book = {
       title: e.target.title.value,
       description: e.target.description.value,
-      //this is how we the value from a checkbox
       status: e.target.status.value,
-
     }
     this.setState({
       showModal: false
@@ -106,12 +122,16 @@ class App extends React.Component {
               <BestBooks
                 books={this.state.books}
                 deleteBook={this.deleteBook}
+                updateBook={this.updateBook}
               />
               <BookFormModal
                 showModal={this.state.showModal}
                 hideModalHandler={this.hideModalHandler}
-                // showModalHandler={this.showModalHandler}
                 handleBookSubmit={this.handleBookSubmit}
+              />
+              <UpdateBookModal
+                showModal={this.state.showModal}
+                hideModalHandler={this.hideModalHandler}
               />
             </Route>
             <Route path="/about">
