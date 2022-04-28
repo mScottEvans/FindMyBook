@@ -14,8 +14,6 @@ import {
 import BookFormModal from './BookFormModal';
 import UpdateBookModal from './BookFormModal';
 
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
