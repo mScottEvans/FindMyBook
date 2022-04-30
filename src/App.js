@@ -12,7 +12,6 @@ import {
   Route
 } from "react-router-dom";
 import BookFormModal from './BookFormModal';
-import UpdateBookModal from './BookFormModal';
 
 
 
@@ -53,6 +52,7 @@ class App extends React.Component {
   postBook = async (book) => {
     try {
       let results = `${process.env.REACT_APP_SERVER}/books`;
+      console.log(book);
       let createdBook = await axios.post(results, book);
       console.log(createdBook.data);
       this.setState({
@@ -86,25 +86,23 @@ class App extends React.Component {
           : existingBook;
       });
       this.setState({
-        cats: updatedBookArray
+        books: updatedBookArray
       });
     } catch(error) {
       console.log('Error: ', error.response.data);
     }
   }
 
-  handleBookSubmit = (e) => {
+  handleBookSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.target.title.value)
+    console.log('BOOOOOOM!!!!!!');
     let book = {
       title: e.target.title.value,
       description: e.target.description.value,
       status: e.target.status.value,
     }
-    this.setState({
-      showModal: false
-    });
-    this.postBook(book);
+    await this.postBook(book);
+    this.hideModalHandler();
   }
 
   componentDidMount() {
@@ -129,10 +127,7 @@ class App extends React.Component {
                 hideModalHandler={this.hideModalHandler}
                 handleBookSubmit={this.handleBookSubmit}
               />
-              <UpdateBookModal
-                showModal={this.state.showModal}
-                hideModalHandler={this.hideModalHandler}
-              />
+              
             </Route>
             <Route path="/about">
               <About />
