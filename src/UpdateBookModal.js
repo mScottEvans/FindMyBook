@@ -8,19 +8,17 @@ class UpdateBookModal extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let bookWithUpdate = {
-      name: e.target.title.value || this.props.book.title,
-      location: e.target.description.value || this.props.book.description,
-      color: e.target.status.value || this.props.book.status,
+      title: e.target.title.value || this.props.book.title,
+      description: e.target.description.value || this.props.book.description,
+      status: e.target.status.value || this.props.book.status,
       _id: this.props.book._id,
       __v: this.props.book.__v
     }
-    this.setState({
-      showModal: false
-    });
     this.props.updateBook(bookWithUpdate);
   }
 
   render() {
+    console.log(this.props.book);
     return (
       <Modal
         show={this.props.showModal}
